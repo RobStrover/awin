@@ -1,3 +1,3 @@
-#index:
-#    path: /
-#    defaults: { _controller: 'App\Controller\DefaultController::index' }
+app_get_currency_exchange_rates:
+    path: /currency-exchange-rates/get-exchange-rates
+    controller: App\Controller\CurrencyExchangeRatesController::getCurrencyExchangeRates
