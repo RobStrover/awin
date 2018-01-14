@@ -9,8 +9,15 @@ $merchantId = $argv[1];
 $merchant = new Merchant();
 $merchant->setMerchantId($merchantId);
 
-var_dump($merchant->getTransactions());
+$transactions = $merchant->getTransactions();
 
-//foreach($merchant->getTransactions() as $transaction) {
-//
-//}
+if (count($transactions) == 0) {
+    echo 'No transactions found for merchant ' . $merchantId . "\r\n";
+} else {
+    echo count($transactions) . ' transactions for merchant ' . $merchantId . "\r\n";
+    echo ' | Date       | Value  |' . "\r\n";
+}
+
+foreach($transactions as $transaction) {
+    echo ' | ' . $transaction['date'] . ' | ' . $transaction['symbol'] . $transaction['value'] . " | \r\n";
+}

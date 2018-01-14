@@ -18,6 +18,9 @@ class MerchantController extends Controller
 
     private function refreshTransactions()
     {
+        $this->transactions = [];
+        $this->convertedTransactions = [];
+
         $transactionConnection = new TransactionTable();
         $this->transactions = $transactionConnection->getTransactionsForMerchant($this->merchantId);
 
@@ -39,9 +42,6 @@ class MerchantController extends Controller
     public function getTransactions()
     {
         $this->refreshTransactions();
-            return array(
-                "original_transactions" => $this->transactions,
-                "gbp_transactions" => $this->convertedTransactions
-            );
-        }
+        return $this->convertedTransactions;
+    }
 }
