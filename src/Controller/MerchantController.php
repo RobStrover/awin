@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\TransactionTable;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MerchantController extends Controller
@@ -13,21 +14,23 @@ class MerchantController extends Controller
     public function setMerchantId($merchantId)
     {
         $this->merchantId = $merchantId;
-        // Code here to fetch transactions and converted transactions
     }
 
-    public function refreshTransactions()
+    private function refreshTransactions()
     {
-
+        $transactionConnection = new TransactionTable();
+        $this->transactions = $transactionConnection->getTransactionsForMerchant($this->merchantId);
     }
 
     public function getTransactions()
     {
+        $this->refreshTransactions();
         return $this->transactions;
     }
 
     public function getConvertedTransactions()
     {
+        $this->refreshTransactions();
         return $this->convertedTransactions;
     }
 }
