@@ -18,7 +18,13 @@ class TransactionTable
 
         foreach ($records as $record) {
             if ($record['merchant'] == $merchantId) {
-                $merchantTransactions[] = $this->splitTransactionCurrency($record);
+                $record = $this->splitTransactionCurrency($record);
+
+                if ($record['currency'] !== 'GBP') {
+                    // currency conversion code here
+                }
+
+                $merchantTransactions = $record;
             }
         }
         return $merchantTransactions;
@@ -42,11 +48,11 @@ class TransactionTable
         $currencySymbol = substr($record['value'], 0, 1);
         $transactionValue = substr($record['value'], 1);
 
-        if (in_array($currencySymbol, $currencies)) {
+        if (array_key_exists($currencySymbol, $currencies)) {
             $record['currency'] = $currencies[$currencySymbol];
             $record['value'] = $transactionValue;
         }
 
-        var_dump($record);
+        return $record;
     }
 }

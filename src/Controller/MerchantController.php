@@ -9,7 +9,6 @@ class MerchantController extends Controller
 {
     private $merchantId;
     private $transactions;
-    private $convertedTransactions;
 
     public function setMerchantId($merchantId)
     {
@@ -26,11 +25,5 @@ class MerchantController extends Controller
     {
         $this->refreshTransactions();
         return $this->transactions;
-    }
-
-    public function getConvertedTransactions()
-    {
-        $this->refreshTransactions();
-        return $this->convertedTransactions;
     }
 }
