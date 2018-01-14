@@ -10,9 +10,14 @@ class MerchantController extends Controller
     private $transactions;
     private $convertedTransactions;
 
-    public function setMerchant($merchantId)
+    public function setMerchantId($merchantId)
     {
         $this->merchantId = $merchantId;
+        // Code here to fetch transactions and converted transactions
+    }
+
+    public function refreshTransactions()
+    {
 
     }
 
