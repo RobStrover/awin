@@ -8,7 +8,7 @@
   Then make sure the currency web service works, run the Symphony Web Server.  
   `$ php bin/console server:run`
   
-  You can test that the webservice is running with the following[link](http://localhost:8000/currency-exchange-rates/get-exchange-rates "List all exchange rates").
+  You can test that the webservice is running with the following [link](http://localhost:8000/currency-exchange-rates/get-exchange-rates "List all exchange rates").
   This should show the two available currencies and their exchange rates vs GBP.
   
   To run the script, use the following command:  
