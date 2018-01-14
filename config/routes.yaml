@@ -1,3 +1,7 @@
 app_get_currency_exchange_rates:
     path: /currency-exchange-rates/get-exchange-rates
-    controller: App\Controller\CurrencyExchangeRatesController::getCurrencyExchangeRates
+    controller: App\Controller\GbpCurrencyExchangeRatesController::getCurrencyExchangeRates
+
+app_get_currency_exchange_rate:
+    path: /currency-exchange-rates/get-exchange-rate/{currency}
+    controller: App\Controller\GbpCurrencyExchangeRatesController::getCurrencyExchangeRate
