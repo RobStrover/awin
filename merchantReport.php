@@ -4,6 +4,10 @@ require 'vendor/autoload.php';
 
 use App\Controller\MerchantController as Merchant;
 
+if (!array_key_exists(1, $argv) || !is_numeric($argv[1])) {
+    die('please include an integer merchant ID');
+}
+
 $merchantId = $argv[1];
 
 $merchant = new Merchant();

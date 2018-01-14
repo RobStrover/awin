@@ -32,9 +32,9 @@ class MerchantController extends Controller
             }
             if ($transaction['currency'] !== 'GBP') {
                 $transaction['value'] = $currencyConverter->convertToGbp($transaction['currency'], $transaction['value']);
-                $transaction['currency'] = 'GBP';
-                $transaction['symbol'] = '£';
             }
+            $transaction['currency'] = 'GBP';
+            $transaction['symbol'] = '£';
             $this->convertedTransactions[] = $transaction;
         }
     }
