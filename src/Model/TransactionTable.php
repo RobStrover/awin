@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Controller\CurrencyConversionController;
 use League\Csv\Reader;
 use League\Csv\Statement;
 
@@ -19,12 +20,7 @@ class TransactionTable
         foreach ($records as $record) {
             if ($record['merchant'] == $merchantId) {
                 $record = $this->splitTransactionCurrency($record);
-
-                if ($record['currency'] !== 'GBP') {
-                    // currency conversion code here
-                }
-
-                $merchantTransactions = $record;
+                $merchantTransactions[] = $record;
             }
         }
         return $merchantTransactions;
@@ -39,17 +35,14 @@ class TransactionTable
 
     private function splitTransactionCurrency($record)
     {
-        $currencies = array(
-            "$" => 'USD',
-            "€" => 'EUR',
-            "£" => 'GBP'
-        );
-
         $currencySymbol = substr($record['value'], 0, 1);
         $transactionValue = substr($record['value'], 1);
 
-        if (array_key_exists($currencySymbol, $currencies)) {
-            $record['currency'] = $currencies[$currencySymbol];
+        $currencyConverter = new CurrencyConversionController();
+        $currencyCode = $currencyConverter->getCurrencyCode($currencySymbol);
+
+        if ($currencyCode !== null) {
+            $record['currency'] = $currencyCode;
             $record['value'] = $transactionValue;
         }
 
