@@ -7,12 +7,6 @@ use League\Csv\Statement;
 
 class TransactionTable
 {
-    private function getCsvConnection()
-    {
-        $csv = Reader::createFromPath('data.csv', 'r');
-        $csv->setDelimiter(';');
-        return $csv;
-    }
 
     public function getTransactionsForMerchant($merchantId)
     {
@@ -24,9 +18,35 @@ class TransactionTable
 
         foreach ($records as $record) {
             if ($record['merchant'] == $merchantId) {
-                $merchantTransactions[] = $record;
+                $merchantTransactions[] = $this->splitTransactionCurrency($record);
             }
         }
         return $merchantTransactions;
+    }
+
+    private function getCsvConnection()
+    {
+        $csv = Reader::createFromPath('data.csv', 'r');
+        $csv->setDelimiter(';');
+        return $csv;
+    }
+
+    private function splitTransactionCurrency($record)
+    {
+        $currencies = array(
+            "$" => 'USD',
+            "€" => 'EUR',
+            "£" => 'GBP'
+        );
+
+        $currencySymbol = substr($record['value'], 0, 1);
+        $transactionValue = substr($record['value'], 1);
+
+        if (in_array($currencySymbol, $currencies)) {
+            $record['currency'] = $currencies[$currencySymbol];
+            $record['value'] = $transactionValue;
+        }
+
+        var_dump($record);
     }
 }
