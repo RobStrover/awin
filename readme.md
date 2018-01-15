@@ -23,3 +23,6 @@
     | 02/05/2010 | £11.04 |  
     | 02/05/2010 | £1.35 |  
     | 03/05/2010 | £16.83 | 
+## Automated Tests
+A few PHPUnit tests have been included in this project. Run them with:  
+`$ ./bin/phpunit`
